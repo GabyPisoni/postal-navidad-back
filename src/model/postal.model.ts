@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
+//Structure of Postal Entity in DB
 @Entity()
 export class PostalEntity {
   @PrimaryGeneratedColumn()
