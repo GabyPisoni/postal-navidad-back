@@ -15,6 +15,7 @@ export class PostalRepository {
    }
 
    async savePostal(data: Partial<PostalEntity>): Promise<PostalEntity> {
-      return this.postalRepository.save(data);
+      const postal = this.postalRepository.create(data);
+      return this.postalRepository.save(postal);
    }
 }
