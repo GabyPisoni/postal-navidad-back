@@ -6,7 +6,6 @@ import {
   UploadedFile,
   UseInterceptors,
   Body,
-  BadRequestException,
   UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -16,6 +15,7 @@ import { S3Service } from '../ModuleS3/s3.service';
 import { PostalService } from '../postal/postal.service';
 import { CreatePostalRequest, CreatePostalResponse, PostalOutput } from './dto/create-postal.dto';
 import { PostalGuard } from 'src/guards/postalAvailable.guard';
+import { ValidationFilePipe } from 'src/pipes/validationFile.pipe';
 
 @Controller('/api/postal')
 export class PostalController {
@@ -29,7 +29,6 @@ export class PostalController {
     return this.postalService.findBySlug(slug);
   }
 @UseGuards(PostalGuard)
-
   @Post()
   @UseInterceptors(
     FileInterceptor('file', {
@@ -40,11 +39,8 @@ export class PostalController {
     @Body('fromName') fromName: string,
     @Body('toName') toName: string,
     @Body('message') message: string,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(new ValidationFilePipe()) file: Express.Multer.File,
   ): Promise<CreatePostalResponse> {
-    if (!file) {
-      throw new BadRequestException('file is required');
-    }
     const body: CreatePostalRequest = { fromName, toName, message };
     return this.postalService.createPostal(body, file);
   }
@@ -60,11 +56,8 @@ export class PostalController {
     }),
   )
   async uploadImage(
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile(new ValidationFilePipe()) file: Express.Multer.File,
   ): Promise<string> {
-      if (!file) {
-      throw new BadRequestException('file is required');
-    }
     return this.s3Service.uploadImage(file);
   }
 }
