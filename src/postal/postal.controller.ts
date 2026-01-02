@@ -11,7 +11,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import type { Express } from 'express';
 import multer from 'multer';
-import { S3Service } from '../ModuleS3/s3.service';
+import { S3Service } from '../moduleS3/s3.service';
 import { PostalService } from '../postal/postal.service';
 import { CreatePostalRequest, CreatePostalResponse, PostalOutput } from './dto/create-postal.dto';
 import { PostalGuard } from 'src/guards/postalAvailable.guard';
@@ -36,13 +36,12 @@ export class PostalController {
     }),
   )
   async createPostal(
-    @Body('fromName') fromName: string,
-    @Body('toName') toName: string,
-    @Body('message') message: string,
+    @Body() body: CreatePostalRequest,
     @UploadedFile(new ValidationFilePipe()) file: Express.Multer.File,
   ): Promise<CreatePostalResponse> {
-    const body: CreatePostalRequest = { fromName, toName, message };
-    return this.postalService.createPostal(body, file);
+    const { fromName, toName, message } = body;
+    const reqBody: CreatePostalRequest = { fromName, toName, message };
+    return this.postalService.createPostal(reqBody, file);
   }
 @UseGuards(PostalGuard)
   @Post('/upload')

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { S3Module } from '../ModuleS3/s3.module';
+import { S3Module } from '../moduleS3/s3.module';
 import { PostalRepository } from '../repository/repository';
 import { PostalEntity } from '../model/postal.model';
 import { PostalController } from './postal.controller';

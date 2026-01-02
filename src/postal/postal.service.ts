@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PostalRepository } from '../repository/repository';
-import { S3Service } from '../ModuleS3/s3.service';
+import { S3Service } from '../moduleS3/s3.service';
 import { PostalEntity } from '../model/postal.model';
 import {
-  CreatePostalRequest,
-  CreatePostalResponse,
+  CreatePostalRequest as CreatePostalPropsDto,
+  CreatePostalResponse as CreatePostalService,
   PostalOutput,
 } from './dto/create-postal.dto';
 
@@ -16,9 +16,9 @@ export class PostalService {
   ) {}
 
   async createPostal(
-    dto: CreatePostalRequest,
+    dto: CreatePostalPropsDto,
     file: Express.Multer.File,
-  ): Promise<CreatePostalResponse> {
+  ): Promise<CreatePostalService> {
     // Upload image to S3
     const imageKey: string = await this.s3Service.uploadImage(file);
 
@@ -33,7 +33,7 @@ export class PostalService {
     // Save postal in DB
     const savedPostal = await this.postalRepository.savePostal(postal);
 
-    return new CreatePostalResponse(savedPostal.slug);
+    return new CreatePostalService(savedPostal.slug);
   }
 
   async findBySlug(slug: string): Promise<PostalOutput> {
