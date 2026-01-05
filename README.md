@@ -26,7 +26,8 @@ src/
 ├── exceptionFilters/         # Filtros de excepción personalizados
 ├── guards/                   # Guards (validacion cabecera)
 ├── pipes/                    # Pipes personalizados (validation)
-├── utils/                    # Objetos de respuestas```
+├── utils/                    # Objetos de respuestas
+```
 ## Subida de archivos
 
 - Los endpoints que reciben archivos usan `@UseInterceptors(FileInterceptor('file'))` con `multer`.
