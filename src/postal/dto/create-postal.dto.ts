@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsString,
@@ -10,16 +11,19 @@ import {
 } from 'class-validator';
 
 export class CreatePostalRequest {
+  @ApiProperty()
   @IsNotEmpty({ message: 'fromName must not be empty' })
   @IsString({ message: 'fromName must be a string' })
   @MaxLength(50, { message: 'fromName must be at most 50 characters' })
   @MinLength(8, { message: 'fromName must be at least 8 characters' })
   fromName: string;
+  @ApiProperty()
   @IsNotEmpty({ message: 'toName must not be empty' })
   @IsString({ message: 'toName must be a string' })
   @MaxLength(50, { message: 'toName must be at most 50 characters' })
   @MinLength(8, { message: 'toName must be at least 8 characters' })
   toName: string;
+  @ApiProperty()
   @IsNotEmpty({ message: 'message must not be empty' })
   @IsString({ message: 'message must be a string' })
   @MaxLength(50, { message: 'message must be at most 50 characters' })
@@ -28,6 +32,7 @@ export class CreatePostalRequest {
 }
 
 export class CreatePostalResponse {
+  @ApiProperty()
   @IsNotEmpty({ message: 'slug must not be empty' })
   @IsString({ message: 'slug must be a string' })
   @Matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
@@ -41,6 +46,7 @@ export class CreatePostalResponse {
 }
 
 export class PostalOutput {
+  
   @IsNotEmpty({ message: 'id must not be empty' })
   @IsNumber({}, { message: 'id must be a number' })
   @IsPositive({ message: 'id must be a positive number' })
