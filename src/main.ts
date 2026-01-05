@@ -16,7 +16,6 @@ async function bootstrap() {
     .setTitle('Postal Api')
     .setDescription('The Postal API description')
     .setVersion('1.0')
-    .addTag('postal')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
