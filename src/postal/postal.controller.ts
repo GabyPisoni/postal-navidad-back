@@ -23,6 +23,7 @@ import { ValidationFilePipe } from 'src/pipes/validationFile.pipe';
 import { ApiBody, ApiConsumes, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import {
   GET_RESPONSES_OK_SWAGGER,
+  POST_BAD_REQUEST_SWAGGER,
   POST_RESPONSES_OK_SWAGGER,
   UNAUTHORIZED_TOKEN,
   UPLOAD_BAD_REQUEST_SWAGGER,
@@ -56,12 +57,7 @@ export class PostalController {
   @ApiResponse({
     status: 400,
     description: 'Bad Request',
-    example: {
-      statusCode: 400,
-      timestamp: '2026-01-01T00:00:00.000Z',
-      path: '/api/postal',
-      message: 'file is required',
-    },
+    example: POST_BAD_REQUEST_SWAGGER
   })
   @ApiResponse({ status: 401, description: 'Unauthorized', example: UNAUTHORIZED_TOKEN })
   @Post()

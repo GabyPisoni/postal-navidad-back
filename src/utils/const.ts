@@ -19,3 +19,10 @@ export const UPLOAD_BAD_REQUEST_SWAGGER = {
   path: '/api/postal/upload',
   message: 'file is required',
 };
+
+export const POST_BAD_REQUEST_SWAGGER = {
+      statusCode: 400,
+      timestamp: '2025-05-01T00:00:00.000Z',
+      path: '/api/postal',
+      message: 'file is required',
+    }
