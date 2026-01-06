@@ -26,3 +26,10 @@ export const POST_BAD_REQUEST_SWAGGER = {
       path: '/api/postal',
       message: 'file is required',
     }
+export const GET_NOT_FOUND_SWAGGER = 
+  {
+    "statusCode": 404,
+    "timestamp": "2024-07-06T12:49:14.127Z",
+    "path": "/api/postal/12312312",
+    "message": "Postal no encontrada"
+}

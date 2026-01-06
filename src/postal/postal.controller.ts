@@ -22,6 +22,7 @@ import { PostalGuard } from 'src/guards/postalAvailable.guard';
 import { ValidationFilePipe } from 'src/pipes/validationFile.pipe';
 import { ApiBody, ApiConsumes, ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import {
+  GET_NOT_FOUND_SWAGGER,
   GET_RESPONSES_OK_SWAGGER,
   POST_BAD_REQUEST_SWAGGER,
   POST_RESPONSES_OK_SWAGGER,
@@ -40,7 +41,7 @@ export class PostalController {
   @ApiQuery({ name: 'slug', description: 'The slug identifier of the postal card to retrieve' })
   @ApiResponse({ status: 200, description: 'Postal card found successfully', type: PostalOutput, example: GET_RESPONSES_OK_SWAGGER })
   @ApiResponse({ status: 401, description: 'Unauthorized', example: UNAUTHORIZED_TOKEN })
-  @ApiResponse({ status: 404, description: 'Postal card not found' })
+  @ApiResponse({ status: 404, description: 'Postal card not found' , example:GET_NOT_FOUND_SWAGGER})
   @Get(':slug')
   async findBySlug(@Param('slug') slug: string): Promise<PostalOutput> {
     return this.postalService.findBySlug(slug);
